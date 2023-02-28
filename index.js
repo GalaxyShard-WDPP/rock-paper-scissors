@@ -4,20 +4,24 @@ const game = document.getElementById("game");
 const result = document.getElementById("result");
 const countdown = document.getElementById("countdown");
 
+const playerScore = document.getElementById("player-score");
+const computerScore = document.getElementById("computer-score");
+const resetScore = document.getElementById("reset");
+
 const selectRock = document.getElementById("select-rock");
 const selectPaper = document.getElementById("select-paper");
 const selectScissors = document.getElementById("select-scissors");
 
 let isRunning = false;
+let selection = null;
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
-let selection = null;
 
 // returns 0 on tie, 1 on win, -1 on loss
 function findWinner(player, computer) {
     if (player === computer) {
         return 0;
-    } else if ((player+1)%3 === computer) {
+    } else if ((player+1)%3 === computer) { // rock < paper < scissors < rock
         return -1;
     } else {
         return 1;
@@ -29,6 +33,7 @@ function endGame() {
     result.classList.add("show");
 
     let options = ["Rock", "Paper", "Scissors"];
+    // 0 is rock, paper is 1, scissors are 2
     const computerGuess = Math.floor(Math.random()*3);
     let playerGuess = null;
 
@@ -52,10 +57,12 @@ function endGame() {
         
         if (gameResult === 1) {
             result.textContent += "Thats a win for you!";
+            playerScore.textContent = parseInt(playerScore.textContent) + 1;
         } else if (gameResult === 0) {
             result.textContent += "Looks like a tie!";
         } else {
             result.textContent += "Game over.";
+            computerScore.textContent = parseInt(computerScore.textContent) + 1;
         }
     }
 }
@@ -80,25 +87,18 @@ startGame.addEventListener("click", async () => {
     endGame();
 });
 
+function select(option) {
+    if (selection) {
+        selection.classList.remove("selection");
+    }
+    selection = option;
+    selection.classList.add("selection");
+}
+selectRock.addEventListener("click", () => { select(selectRock); });
+selectPaper.addEventListener("click", () => { select(selectPaper); });
+selectScissors.addEventListener("click", () => { select(selectScissors); });
 
-selectRock.addEventListener("click", () => {
-    if (selection) {
-        selection.classList.remove("selection");
-    }
-    selection = selectRock;
-    selection.classList.add("selection");
-});
-selectPaper.addEventListener("click", () => {
-    if (selection) {
-        selection.classList.remove("selection");
-    }
-    selection = selectPaper;
-    selection.classList.add("selection");
-});
-selectScissors.addEventListener("click", () => {
-    if (selection) {
-        selection.classList.remove("selection");
-    }
-    selection = selectScissors;
-    selection.classList.add("selection");
+resetScore.addEventListener("click", () => {
+    playerScore.textContent = "0";
+    computerScore.textContent = "0";
 });

@@ -15,7 +15,23 @@
     <div class="container-fluid mt-5 py-3">
         <p class="h1 fw-normal text-center">Rock Paper Scissors</p>
         
+        <div id="scoreboard" class="mb-4 mt-5">
+            <div class="row text-center">
+                <div class="col-5">
+                    <div>Player</div>
+                    <div id="player-score">0</div>
+                </div>
+                <div class="col-2">
+                    <button id="reset" class="d-block mx-auto">Reset Score</button>
+                </div>
+                <div class="col-5">
+                    <div>Computer</div>
+                    <div id="computer-score">0</div>
+                </div>
+            </div>
+        </div>
         <button id="start" class="d-block mx-auto mt-5 mb-4">Start game</button>
+
         <div id="game">
             <p id="countdown" class="display-5 text-center">3</p>
             <p class="text-center">Click on a button below</p>
@@ -34,6 +50,9 @@
         <div id="result" class="my-3 text-center">
             &nbsp;
         </div>
+        <footer class="text-center fst-italic mt-5">
+            Made by Dominic Adragna
+        </footer>
     </div>
 </body>
 </html>
